@@ -23,11 +23,6 @@ struct State {
 fn main() {
 //https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=59.88369&lon=10.80548&altitude=166
 
-
-
-
-    let state = State { temperature_now: 0.0, icon_now: "".to_string() };
-
     App::new()
         //  .insert_resource(state)
         .add_event::<StreamEvent>()
@@ -40,7 +35,7 @@ fn main() {
             }),
             ..default()
         }))
-        .add_systems(Startup, (setup))
+        .add_systems(Startup, setup)
         .add_systems(Update, (read_stream, spawn_text))
         .add_plugins(CameraPlugin)
         .add_plugins(RenderPlugin)

@@ -1,5 +1,4 @@
 use bevy::app::{App, Startup, Update};
-use bevy::math::Vec2;
 use bevy::prelude::{Camera2dBundle, Commands, Input, KeyCode, Plugin, Query, Res, Window};
 use bevy::window::WindowMode;
 
@@ -15,7 +14,7 @@ impl Plugin for CameraPlugin {
 fn print_monitor_size(
     mut cmd: Commands,
 ) {
-    let mut camera2d_bundle = Camera2dBundle::default();
+    let camera2d_bundle = Camera2dBundle::default();
     cmd.spawn(camera2d_bundle);
 }
 
