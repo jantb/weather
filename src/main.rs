@@ -3,7 +3,8 @@ use std::time::Duration;
 
 use bevy::DefaultPlugins;
 use bevy::prelude::*;
-use bevy::window::{PresentMode, WindowResolution};
+use bevy::window::{PresentMode, RequestRedraw, WindowResolution};
+use bevy::winit::WinitSettings;
 use crossbeam::channel::{bounded, Receiver};
 
 use crate::camera_plugin::CameraPlugin;
@@ -35,6 +36,7 @@ fn main() {
             }),
             ..default()
         }))
+        .insert_resource(WinitSettings::desktop_app())
         .add_systems(Startup, setup)
         .add_systems(Update, (read_stream, spawn_text))
         .add_plugins(CameraPlugin)
@@ -75,9 +77,10 @@ fn setup(mut commands: Commands) {
     commands.insert_resource(StreamReceiver(rx));
 }
 
-fn read_stream(receiver: Res<StreamReceiver>, mut events: EventWriter<StreamEvent>) {
+fn read_stream(receiver: Res<StreamReceiver>, mut events: EventWriter<StreamEvent>,mut event: EventWriter<RequestRedraw>,) {
     for from_stream in receiver.try_iter() {
         events.send(StreamEvent(from_stream));
+        event.send(RequestRedraw)
     }
 }
 
