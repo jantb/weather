@@ -68,7 +68,7 @@ fn setup(mut commands: Commands) {
     commands.spawn(Text2dBundle {
         text: Text::from_section("No Value", text_style.clone())
             .with_alignment(TextAlignment::Center),
-        transform: Transform::from_xyz( 0.0, 300.0, 0.0),
+        transform: Transform::from_xyz( 0.0, 100.0, 0.0),
         ..default()
     });
 
